@@ -33,23 +33,7 @@ function initUrgencyDate() {
 /* --------------------------------------------------------------------------
    2. REPRODUÇÃO E CONTROLE DA VSL 9:16 (ÁREA SUPERIOR)
    -------------------------------------------------------------------------- */
-function loadPandaVsl() {
-  const container = document.getElementById('vslContainer');
-  if (!container || container.querySelector('iframe')) return;
 
-  container.innerHTML = `
-    <iframe
-      id="panda-846d091d-3621-42ae-bb9a-a032b433a4c4"
-      title="Video de Presentación - Método Entrenamiento con Ligas"
-      src="https://player-vz-f4fc5bc1-14f.tv.pandavideo.com.br/embed/?v=846d091d-3621-42ae-bb9a-a032b433a4c4&autoplay=true"
-      style="border:none;position:absolute;top:0;left:0;"
-      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture"
-      allowfullscreen="true"
-      width="100%"
-      height="100%">
-    </iframe>
-  `;
-}
 
 /* --------------------------------------------------------------------------
    3. PERGUNTAS FREQUENTES (FAQ ACCORDION)
