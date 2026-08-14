@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Seguro — Entrenamiento con Ligas Elásticas</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 30%, rgba(0, 230, 118, 0.1) 0%, #070a0d 100%);
+      padding: 20px;
+    }
+    .checkout-box {
+      background: #131b22;
+      border: 2px solid #00e676;
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 230, 118, 0.25);
+    }
+    .checkout-box h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: #00e676;
+      margin-bottom: 10px;
+    }
+    .checkout-box p {
+      color: #9eaec0;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    .plan-info {
+      background: #070a0d;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #23313d;
+      margin-bottom: 25px;
+    }
+    .plan-title {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .plan-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: #00e676;
+    }
+    .back-btn {
+      display: inline-block;
+      background: #00e676;
+      color: #000;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-box">
+    <h1>🔒 Checkout Seguro</h1>
+    <p>Página de pago lista para integración con Hotmart, Kiwify, PerfectPay, Pepper o Stripe.</p>
+    
+    <div class="plan-info">
+      <div class="plan-title" id="displayPlan">Plan Seleccionado</div>
+      <div class="plan-price" id="displayPrice">$ --</div>
+      <div style="font-size: 0.8rem; color: #00e676; margin-top: 5px;">Acceso De Por Vida Garantizado</div>
+    </div>
+
+    <a href="../index.html" class="back-btn">← Volver a la Página Principal</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan') || 'completo';
+    const price = params.get('price') || '26.90';
+    
+    const displayPlan = document.getElementById('displayPlan');
+    const displayPrice = document.getElementById('displayPrice');
+    
+    if (plan === 'basico') {
+      displayPlan.textContent = 'Plan Básico (100 Ejercicios PDF)';
+    } else if (plan === 'completo_promo') {
+      displayPlan.textContent = 'Plan Completo Promo (+500 Videos HD + Bonos)';
+    } else {
+      displayPlan.textContent = 'Plan Completo (+500 Videos HD + Bonos)';
+    }
+    
+    displayPrice.textContent = `$${price} USD`;
+  </script>
+</body>
+</html>
