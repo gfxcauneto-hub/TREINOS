@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initUrgencyDate();
   initFaqAccordion();
   initTestimonialCarousel();
-  initLazyTestimonials();
   initModalListeners();
 });
 
@@ -77,26 +76,6 @@ function initTestimonialCarousel() {
 
   nextBtn.addEventListener('click', function () {
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
-}
-
-function initLazyTestimonials() {
-  const facades = document.querySelectorAll('.testimonial-video-facade');
-  facades.forEach(function (facade) {
-    facade.addEventListener('click', function () {
-      const embedUrl = this.getAttribute('data-embed');
-      if (!embedUrl || this.classList.contains('loaded')) return;
-
-      this.classList.add('loaded');
-      this.innerHTML = `<iframe
-        loading="lazy"
-        title="Gumlet video player"
-        src="${embedUrl}"
-        style="border:none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
-        referrerpolicy="origin"
-        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write">
-      </iframe>`;
-    });
   });
 }
 
