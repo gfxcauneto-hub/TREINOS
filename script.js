@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initUrgencyDate();
   initFaqAccordion();
   initTestimonialCarousel();
-  initCheckoutParams();
+  initLazyTestimonials();
   initModalListeners();
 });
 
@@ -94,6 +94,26 @@ function initTestimonialCarousel() {
   });
 }
 
+function initLazyTestimonials() {
+  const facades = document.querySelectorAll('.testimonial-video-facade');
+  facades.forEach(function (facade) {
+    facade.addEventListener('click', function () {
+      const embedUrl = this.getAttribute('data-embed');
+      if (!embedUrl || this.classList.contains('loaded')) return;
+
+      this.classList.add('loaded');
+      this.innerHTML = `<iframe
+        loading="lazy"
+        title="Gumlet video player"
+        src="${embedUrl}"
+        style="border:none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
+        referrerpolicy="origin"
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write">
+      </iframe>`;
+    });
+  });
+}
+
 /* --------------------------------------------------------------------------
    5. UPSELL MODAL (LÓGICA E INTERAÇÕES)
    -------------------------------------------------------------------------- */
@@ -139,10 +159,9 @@ function initModalListeners() {
 }
 
 /* --------------------------------------------------------------------------
-   6. REDIRECIONAMENTO DE CHECKOUT E PRESERVAÇÃO DE UTMS / FBCLID
+   6. REDIRECIONAMENTO DIRETO PARA CHECKOUT
    -------------------------------------------------------------------------- */
 
-// Configuração dos links de checkout para cada oferta (Substitua pelas URLs do Hotmart/Kiwify se desejar)
 const CHECKOUT_URLS = {
   'oferta-basica-10': './checkout/index.html?plan=basico&price=10',
   'oferta-completa': './checkout/index.html?plan=completo&price=26.90',
@@ -150,32 +169,6 @@ const CHECKOUT_URLS = {
 };
 
 function irParaCheckout(ofertaKey) {
-  const targetBase = CHECKOUT_URLS[ofertaKey] || './checkout/index.html';
-  
-  // Captura os parâmetros atuais da URL (ex: fbclid, utm_source, utm_campaign, etc)
-  const currentParams = new URLSearchParams(window.location.search);
-  
-  // Constrói a nova URL mesclando os parâmetros de checkout com os parâmetros de rastreamento
-  let finalUrl;
-  try {
-    const dummyBase = 'http://dummy.com/' + targetBase;
-    const urlObj = new URL(dummyBase);
-    
-    // Anexa todos os parâmetros atuais da página (fbclid, utm_*, etc)
-    currentParams.forEach((val, key) => {
-      urlObj.searchParams.set(key, val);
-    });
-
-    finalUrl = targetBase.split('?')[0] + urlObj.search;
-  } catch (e) {
-    finalUrl = targetBase;
-  }
-
-  // Redireciona o usuário para o checkout final
-  window.location.href = finalUrl;
-}
-
-function initCheckoutParams() {
-  // Opcional: Garante repasse dinâmico de parâmetros de URL para links externos
-  console.log('Redirecionador de checkout configurado com preservação de rastreamento.');
+  const targetUrl = CHECKOUT_URLS[ofertaKey] || './checkout/index.html';
+  window.location.href = targetUrl;
 }
