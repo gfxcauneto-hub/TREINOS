@@ -64,18 +64,12 @@
           </div>
 
           <div class="vsl-frame-wrapper">
-            <div style="position:relative;padding-top:177.77777777777777%;">
-              <iframe
-                id="panda-846d091d-3621-42ae-bb9a-a032b433a4c4"
-                title="Video de Presentación - Método Entrenamiento con Ligas"
-                src="https://player-vz-f4fc5bc1-14f.tv.pandavideo.com.br/embed/?v=846d091d-3621-42ae-bb9a-a032b433a4c4"
-                style="border:none;position:absolute;top:0;left:0;"
-                allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture"
-                allowfullscreen="true"
-                width="100%"
-                height="100%"
-                fetchpriority="high">
-              </iframe>
+            <div style="position:relative;padding-top:177.77777777777777%;" id="vslContainer">
+              <div class="vsl-placeholder-overlay" id="vslOverlay" onclick="loadPandaVsl()">
+                <div class="play-btn-pulse">▶</div>
+                <div class="vsl-placeholder-title">+500 ENTRENAMIENTOS CON LIGAS</div>
+                <div class="vsl-placeholder-sub">🔊 Haz clic para ver la presentación</div>
+              </div>
             </div>
           </div>
         </div>
