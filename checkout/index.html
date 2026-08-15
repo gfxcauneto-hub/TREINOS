@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
       background: radial-gradient(circle at 50% 30%, rgba(0, 230, 118, 0.1) 0%, #070a0d 100%);
       padding: 20px;
     }
+
     .checkout-box {
       background: #131b22;
       border: 2px solid #00e676;
@@ -24,17 +26,20 @@
       text-align: center;
       box-shadow: 0 0 30px rgba(0, 230, 118, 0.25);
     }
+
     .checkout-box h1 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 2.5rem;
       color: #00e676;
       margin-bottom: 10px;
     }
+
     .checkout-box p {
       color: #9eaec0;
       font-size: 0.95rem;
       margin-bottom: 20px;
     }
+
     .plan-info {
       background: #070a0d;
       padding: 20px;
@@ -42,16 +47,19 @@
       border: 1px solid #23313d;
       margin-bottom: 25px;
     }
+
     .plan-title {
       font-weight: 700;
       color: #fff;
       font-size: 1.1rem;
     }
+
     .plan-price {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 2.8rem;
       color: #00e676;
     }
+
     .back-btn {
       display: inline-block;
       background: #00e676;
@@ -65,11 +73,12 @@
     }
   </style>
 </head>
+
 <body>
   <div class="checkout-box">
     <h1>🔒 Checkout Seguro</h1>
     <p>Página de pago lista para integración con Hotmart, Kiwify, PerfectPay, Pepper o Stripe.</p>
-    
+
     <div class="plan-info">
       <div class="plan-title" id="displayPlan">Plan Seleccionado</div>
       <div class="plan-price" id="displayPrice">$ --</div>
@@ -83,10 +92,10 @@
     const params = new URLSearchParams(window.location.search);
     const plan = params.get('plan') || 'completo';
     const price = params.get('price') || '26.90';
-    
+
     const displayPlan = document.getElementById('displayPlan');
     const displayPrice = document.getElementById('displayPrice');
-    
+
     if (plan === 'basico') {
       displayPlan.textContent = 'Plan Básico (100 Ejercicios PDF)';
     } else if (plan === 'completo_promo') {
@@ -94,8 +103,9 @@
     } else {
       displayPlan.textContent = 'Plan Completo (+500 Videos HD + Bonos)';
     }
-    
+
     displayPrice.textContent = `$${price} USD`;
   </script>
 </body>
+
 </html>

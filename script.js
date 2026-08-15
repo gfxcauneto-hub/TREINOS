@@ -99,13 +99,13 @@ function fecharUpsell() {
 }
 
 function aceitarUpsell() {
-  // Redireciona para o plano completo com valor promocional de R$ 19,90 preservando UTMs
-  irParaCheckout('oferta-upsell-1990');
+  // Redireciona para o plano completo com valor promocional de $ 7.90 USD
+  irParaCheckout('oferta-upsell-790');
 }
 
 function recusarUpsell() {
-  // Redireciona para o plano básico de R$ 10,00 preservando UTMs
-  irParaCheckout('oferta-basica-10');
+  // Redireciona para o plano básico de $ 5.00 USD
+  irParaCheckout('oferta-basica-5');
 }
 
 function initModalListeners() {
@@ -124,16 +124,38 @@ function initModalListeners() {
 }
 
 /* --------------------------------------------------------------------------
-   6. REDIRECIONAMENTO DIRETO PARA CHECKOUT
+   6. PRESERVAÇÃO DE UTMs & REDIRECIONAMENTO DIRETO PARA O HOTMART
    -------------------------------------------------------------------------- */
 
 const CHECKOUT_URLS = {
-  'oferta-basica-10': './checkout/index.html?plan=basico&price=10',
-  'oferta-completa': './checkout/index.html?plan=completo&price=26.90',
-  'oferta-upsell-1990': './checkout/index.html?plan=completo_promo&price=19.90'
+  'oferta-basica-5': 'https://pay.hotmart.com/Q107172621W?off=mou4k4op&checkoutMode=10',
+  'oferta-basica-10': 'https://pay.hotmart.com/Q107172621W?off=mou4k4op&checkoutMode=10',
+  'oferta-completa': 'https://pay.hotmart.com/Q107172621W?off=v6cg3xz5&checkoutMode=10',
+  'oferta-upsell-790': 'https://pay.hotmart.com/Q107172621W?off=z0tzg1c9&checkoutMode=10',
+  'oferta-upsell-1990': 'https://pay.hotmart.com/Q107172621W?off=z0tzg1c9&checkoutMode=10'
 };
 
 function irParaCheckout(ofertaKey) {
-  const targetUrl = CHECKOUT_URLS[ofertaKey] || './checkout/index.html';
+  let targetUrl = CHECKOUT_URLS[ofertaKey] || 'https://pay.hotmart.com/Q107172621W?off=v6cg3xz5&checkoutMode=10';
+  
+  // Captura e anexa automaticamente todos os parâmetros da URL atual (UTMs, src, fbclid, etc)
+  const currentParams = window.location.search;
+  if (currentParams) {
+    const searchSymbol = targetUrl.includes('?') ? '&' : '?';
+    targetUrl += searchSymbol + currentParams.substring(1);
+  }
+
   window.location.href = targetUrl;
 }
+
+/* --------------------------------------------------------------------------
+   7. EXIT-INTENT POPUP (RETENÇÃO DE TRÁFEGO AO TENTAR FECHAR A PÁGINA)
+   -------------------------------------------------------------------------- */
+let exitIntentTriggered = false;
+
+document.addEventListener('mouseleave', function (e) {
+  if (e.clientY <= 0 && !exitIntentTriggered) {
+    exitIntentTriggered = true;
+    abrirUpsell();
+  }
+});
